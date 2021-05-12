@@ -1,0 +1,13 @@
+[Unit]
+Description=Octavia Interface Creator
+Requires=neutron-openvswitch-agent.service
+After=neutron-openvswitch-agent.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/opt/octavia-interface.sh start
+ExecStop=/opt/octavia-interface.sh stop
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,99 @@
+------------------ Installation using batched script commands  ------------------
+
+$ git clone https://github.com/kasidit/openstack-train-installer
+$ cd openstack-train-installer/
+$ vi install-paramrc.sh
+$ ./exe-config-installer.sh
+$ cd OPSInstaller/installer/
+$ ./Deploy-1node-exe-preinstall01-USER-set-OPSInstaller.sh
+$ cd
+$ cd OPSInstaller/
+$ cd Deploy-1node-controller
+$ sudo ./Deploy-1node-00-SUDO-update.sh
+$  sudo reboot
+$ ssh openstack@10.0.0.11
+$  cd OPSInstaller/
+$ cd Deploy-1node-controller/
+$ ./Batch-1node-01-to-05.sh
+Enter current password for root (enter for none): (enter)
+Switch to unix_socket authentication [Y/n] Y
+Change the root password? [Y/n] Y
+New password: mysqlpassword
+Re-enter new password: mysqlpassword
+Remove anonymous users? [Y/n] Y
+Disallow root login remotely? [Y/n] Y
+Remove test database and access to it? [Y/n] Y
+Reload privilege tables now? [Y/n] Y
+q
+$ Batch-1node-06-to-36.sh
+
+------------------ Installation using detailed script commands ------------------
+$ 
+$ git clone https://github.com/kasidit/openstack-train-installer
+$ cd openstack-train-installer/
+$ vi install-paramrc.sh
+$ ./exe-config-installer.sh
+$ cd OPSInstaller/installer/
+$ ./Deploy-1node-exe-preinstall01-USER-set-OPSInstaller.sh
+$ cd
+$ cd OPSInstaller/
+$ cd Deploy-1node-controller
+$ sudo ./Deploy-1node-00-SUDO-update.sh
+$  sudo reboot
+$ ssh openstack@10.0.0.11
+$  cd OPSInstaller/
+$ cd Deploy-1node-controller/
+$ sudo ./Deploy-1node-01-SUDO-preinstall.sh
+$ sudo ./Deploy-1node-02-SUDO-network-preinstall.sh
+$ sudo ./Deploy-1node-03-SUDO-update.sh
+$ sudo ./Deploy-1node-04-SUDO-compute-preinstall.sh
+$ sudo ./Deploy-1node-05-SUDO-mysql.sh
+Enter current password for root (enter for none): (enter)
+Switch to unix_socket authentication [Y/n] Y
+Change the root password? [Y/n] Y
+New password: mysqlpassword
+Re-enter new password: mysqlpassword
+Remove anonymous users? [Y/n] Y
+Disallow root login remotely? [Y/n] Y
+Remove test database and access to it? [Y/n] Y
+Reload privilege tables now? [Y/n] Y
+q
+$ sudo ./Deploy-1node-06-SUDO-compute-mysql.sh
+$ sudo ./Deploy-1node-07-SUDO-rabbit.sh
+$ sudo ./Deploy-1node-08-SUDO-keystone-database.sh
+$ sudo ./Deploy-1node-09-SUDO-keystone.sh
+$ ./Deploy-1node-10-USER-service-endpoints.sh
+$ ./Deploy-1node-11-USER-test-envscript.sh
+$ sudo ./Deploy-1node-12-SUDO-glance-database.sh
+$ ./Deploy-1node-13-USER-glance-endpoints.sh
+$ sudo ./Deploy-1node-14-SUDO-glance.sh 
+$ sudo ./Deploy-1node-14-x1-SUDO-glance.sh
+$ ./Deploy-1node-15-USER-verify-glance.sh
+$ sudo ./Deploy-1node-15-x1-SUDO-placement-database.sh
+$ ./Deploy-1node-15-x2-USER-placement-endpoints.sh
+$ sudo ./Deploy-1node-15-x3-SUDO-placement.sh
+$ sudo ./Deploy-1node-16-SUDO-nova-database.sh
+$ ./Deploy-1node-17-USER-nova-endpoints.sh
+$ sudo ./Deploy-1node-18-SUDO-nova.sh
+$ sudo ./Deploy-1node-19-SUDO-nova-compute.sh
+$ sudo ./Deploy-1node-19-x1-SUDO-nova-compute.sh
+$ ./Deploy-1node-20-0-USER-verify-nova-compute.sh
+$ ./Deploy-1node-20-1-USER-verify-nova-compute1.sh
+$ ./Deploy-1node-20-2-USER-verify-nova.sh
+$ sudo ./Deploy-1node-21-SUDO-neutron-database.sh
+$ ./Deploy-1node-22-USER-neutron-endpoints.sh
+$ sudo ./Deploy-1node-23-SUDO-neutron.sh
+$ ./Deploy-1node-24-USER-verify-neutron.sh
+$ sudo ./Deploy-1node-25-SUDO-network-neutron.sh
+$ sudo ./Deploy-1node-26-SUDO-reconfig-neutron-nova.sh
+$ sudo ./Deploy-1node-27-SUDO-ovs-service.sh
+$ ./Deploy-1node-28-USER-verify-neutron2.sh
+$ sudo ./Deploy-1node-29-SUDO-compute-neutron.sh
+$ ./Deploy-1node-30-USER-verify-neutron3.sh
+$ ./Deploy-1node-31-USER-initial-network.sh
+$ sudo ./Deploy-1node-32-SUDO-horizon.sh
+$ sudo ./Deploy-1node-33-SUDO-cinder-database.sh
+$ ./Deploy-1node-34-USER-cinder-endpoints.sh
+$ sudo ./Deploy-1node-35-SUDO-cinder.sh
+$ sudo ./Deploy-1node-36-SUDO-cinder.sh
+$
