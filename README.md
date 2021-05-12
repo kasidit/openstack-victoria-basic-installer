@@ -6,7 +6,7 @@ Author: กษิดิศ ชาญเชี่ยว <br>
 Contact: kasiditchanchio@gmail.com <br>
 
 <p>
-<h2>Tutorial: การติดตั้งระบบ OpenStack Ussuri แบบ Multi-node & DVR ด้วย installation scripts บน ubuntu 20.04 </h2> <br>
+<h2>Tutorial: การติดตั้งระบบ OpenStack victoria แบบ Multi-node & DVR ด้วย installation scripts บน ubuntu 20.04 </h2> <br>
 <p>
 ให้ท่านเตรียมเครื่องตามส่วนที่ 1 และหลังจากนั้นเลือกเอาว่าจะติดตั้งด้วย scripts(ส่วนที่ 2) หรือด้วยมือ (ส่วนที่ 3)  
 <ul>
