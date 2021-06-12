@@ -37,7 +37,7 @@ Contact: kasiditchanchio@gmail.com <br>
   <ul>
     <li>1.	กำหนดให้เครือข่ายบริหารจัดการมีค่าสับเน็ต (Subnet) คือ 10.100.20.0/24 </li>
     <li>2.	เครื่องคอนโทรเลอร์เชื่อมต่อกับเครือข่ายนี้ผ่าน เน็ตเวิร์คอินเตอร์เฟสการด์ (Network Interface Card) หรือนิคส์ (NIC) ชื่อ ens3 โดยกำหนดให้มีค่าไอพี 10.100.20.11 โดยใช้เน็ตแพลน (netplan) </li>
-    <li>3.	กำหนดให้เครื่องเน็ตเวิร์ค เครื่องคอมพิวต์และ คอมพิวต์หนึ่ง เชื่อมต่อกับเครือข่ายบริหารฯผ่านนิคส์ ens3 และกำหนดให้ทั้งสามเครื่องมีค่าไอพีคือ 10.100.20.21 10.100.20.31 และ 10.100.20.32 ตามลำดับ <li>
+    <li>3.	กำหนดให้เครื่องเน็ตเวิร์ค เครื่องคอมพิวต์และ คอมพิวต์หนึ่ง เชื่อมต่อกับเครือข่ายบริหารฯผ่านนิคส์ ens3 และกำหนดให้ทั้งสามเครื่องมีค่าไอพีคือ 10.100.20.21 10.100.20.31 และ 10.100.20.32 ตามลำดับ </li>
     <li>4.	กำหนดให้เครื่องเน็ตเวิร์คมีนิคส์ที่เชื่อมต่อกับระบบเครือข่ายอื่นๆอีกสามเครือข่าย ได้แก่ 1) ens4 ที่เชื่อมต่อกับเครือข่ายดาต้าทันเนิล 2) ens5 ที่เชื่อมต่อกับระบบเครือข่ายวีแลน และ 3) ens6 ที่เชื่อมต่อเครื่องเน็ตเวิร์คกับระบบเครือข่ายภายนอก </li>
     <li>5.	สำหรับเครื่องคอมพิวต์และคอมพิวต์หนึ่งนั้น กำหนดให้ทั้งสองเครื่องใช้นิคส์ ens4 เชื่อมต่อกับระบบเครือข่ายดาต้าทัลเนิล และใช้นิคส์ ens5 เชื่อมต่อกับเครือข่ายวีแลน </li>
   </ul>
@@ -63,13 +63,174 @@ openstack-victoria-basic-installer
 On controller: 
 $ cd openstack-victoria-basic-installer/
 $ ls
-config.d          example.install-paramrc.sh  LICENSE                  Untarfiles
-Deployments  exe-config-installer.sh          OPSInstaller-init.tar  vmhosts-scripts
-documents     install-paramrc.sh                 README.md
+config.d     example.install-paramrc.sh  LICENSE                  Untarfiles
+Deployments  exe-config-installer.sh     OPSInstaller-init.tar    vmhosts-scripts
+documents    install-paramrc.sh          README.md
 $ 
 </pre>
 <p>
-  
+ผู้ติดตั้งจะต้องแก้ไขไฟล์ install-paramrc.sh เพื่อกำหนดค่าพารามีเตอร์ (parameters) สำหรับการติดตั้ง ผู้เขียนจะนำเสนอพารามีเตอร์เป็นชุดๆ ซึ่งพารามีเตอร์ในแต่ละชุดมีความหมายดังต่อไปนี้
+<ul>
+  <li>1.	INSTALL_TYPE ระบุค่าชนิดของการติดตั้งสองแบบได้แก่ full หมายถึงติดตั้งบนเครื่องคอมพิวเตอร์ที่เตรียมไว้ทั้งสี่เครื่อง หรือ compact คือติดตั้งบนสามเครื่อง (ทุกเครื่องยกเว้นเครื่องคอมพิวต์หนึ่ง)
+  <li>2.	NETWORK_TYPE ระบุชนิดของระบบเครือข่ายซึ่งกำหนดให้เป็น classic_ovs ซึ่งหมายถึงการเลือกใช้ระบบ openvswitch สำหรับสร้างระบบเครือข่ายเสมือนภายในระบบโอเพ่นสแตค
+  <li>3.	PASSWD_TYPE คือการกำหนดค่ารหัสผ่านสำหรับซอฟต์แวร์ส่วนประกอบต่างๆของโอเพ่นสแตคซึ่ง studypass คือการใช้ชุดของรหัสผ่านที่เข้าใจได้เพื่อใช้ในการศึกษาการติดตั้ง ในขณะที่ randompass หมายถึงการกำหนดค่ารหัสผ่านด้วยการสุ่มค่าตัวเลขจำนวนเต็ม
+</ul>
+<pre>
+On controller: 
+$ vi install-paramrc.sh 
+…
+export INSTALL_TYPE=full
+export NETWORK_TYPE=classic_ovs
+export PASSWD_TYPE=studypass
+</pre>
+<ul>
+  <li>4.	OPS_LOGIN_NAME และ OPS_LOGIN_PASS คือชื่อล๊อกอินและรหัสรหัสผ่านของแอคเค้าต์ (account) บนเครื่องคอมพิวเตอร์ที่เตรียมไว้สำหรับติดตั้งโอเพ่นสแตคทุกเครื่อง
+  <li>5.	OPS_TIMEZONE คือการกำหนดค่าไทม์โซนสำหรับตั้งเวลาบนเครื่องคอมพิวเตอร์ที่เตรียมไว้ดังกล่าว
+</ul>
+<pre>
+…
+export OPS_LOGIN_NAME=openstack
+export OPS_LOGIN_PASS=openstack
+export OPS_TIMEZONE=Asia\\/Bangkok 
+…
+</pre>
+<ul>
+  <li>6.	OPS_MYSQL_PASS เป็นพารามีเตอร์สำหรับระบุค่ารหัสผ่านสำหรับรูท (root) แอคเค้าต์ของระบบฐานข้อมูลของโอเพ่นสแตค
+  <li>7.	DEMO_PASS และ ADMIN_PASS ใช้สำหรับกำหนดค่ารหัสผ่านของผู้ใช้ตัวอย่าง (Demo user) และค่ารหัสผ่านของผู้ดูแลระบบโอเพ่นสแตคที่กำลังจะสร้างขึ้น
+  <li>8.	HYPERVISOR เป็นพารามีเตอร์ที่กำหนดชนิดของซอฟต์แวร์ไฮเปอร์ไวเซอร์ที่ระบบโอเพ่นสแตคจะใช้สร้างวีเอ็ม มีสองแบบให้กำหนดได้แก่ 1) kvm ที่ผู้ติดตั้งจะกำหนดค่านี้ได้ก็ต่อเมื่อคอมพิวเตอร์ที่ระบบโอเพ่นสแตคจะรันวีเอ็มมีฮารด์แวร์ที่สนับสนุนการประมวลผลแบบเสมือร และ 2) qemu ที่สามารถสร้างวีเอ็มได้บนคอมพิวเตอร์ที่ไม่มีฮาร์ดแวร์สนับสนุนการประมวลผลแบบเสมือน
+</ul>
+<pre>
+…
+export OPS_MYSQL_PASS=mysqlpassword
+export DEMO_PASS=demopassword
+export ADMIN_PASS=adminpassword
+#
+export HYPERVISOR=kvm
+…
+</pre>
+<ul>
+  <li>9.	INIT_IMAGE_LOCATION เป็นที่ระบุค่ายูอาร์แอล (URL) ของไฟล์อิมเมจ (image) ของระบบลินุกส์ขนาดเล็กชื่อว่าระบบ cirros เพื่อใช้ทดสอบการสร้างและใช้งานวีเอ็มหลังจากติดตั้งระบบโอเพ่นสแตคเสร็จ
+  <li>10.	INIT_IMAGE_NAME ชื่อของอิมเมจในข้อ 9
+  <li>11.	DOMAINNAME คือโกเมน (domain) ของระบบเครือข่ายที่ใช้ติดตั้งระบบ
+  <li>12.	NTP_SERVER0 ถึง NTP_SERVER3 เป็นการกำหนดชื่อ เซริฟเวอร์ที่ใช้อ้างอิงเวลาเอ็นทีพี (NTP Time Server) ซึ่งในที่นี้กำหนดค่าเซริฟเวอร์มาตรฐานไว้เป็นค่าดีฟอลต์ (Default)
+</ul>
+<pre>
+…
+export INIT_IMAGE_LOCATION=http:\\/\\/download.cirros-cloud.net\\/0.4.0\\/cirros-0.4.0-x86_64-disk.img
+export INIT_IMAGE_NAME=cirros
+#
+export DOMAINNAME=cs.tu.ac.th
+# ntp servers
+export NTP_SERVER0=0.th.pool.ntp.org
+export NTP_SERVER1=1.th.pool.ntp.org
+export NTP_SERVER2=2.th.pool.ntp.org
+export NTP_SERVER3=3.th.pool.ntp.org
+…
+</pre>
+<p>
+<img src="documents/host-params-mapping.png">
+<p>
+ภาพ 2 แผนภาพแสดงพารามีเตอร์เกี่ยวกับระบบเครือข่ายสำหรับการติดตั้งระบบโอเพ่นสแตค
+<p>
+ถัดจากนั้นจะเป็นการกำหนดค่าของระบบเครือข่ายที่จำเป็นต้องใช้ในการติดตั้งโอเพ่นสแตค ภาพ 7-2 แสดงความเกี่ยวข้องของตัวแปรต่างๆในไฟล์ install_paramrc.sh กับโครงสร้างของคอมพิวเตอร์และระบบเครือข่ายที่รองรับการติดตั้งระบบโอเพ่นสแตค
+<ul>
+  <li>1.	MANAGEMENT_NETWORK_NETMASK และ MANAGEMENT_NETWORK และ MANAGEMENT_NETWORK_BROADCAST_ADDRESS เป็นพารามีเตอร์สำหรับกำหนดค่าระบบเครือข่ายบริหารจัดการของระบบโอเพ่นสแตค
+  <li>2.	DNS_IP เป็นการกำหนดค่าไอพีของ ดีเอ็นเอส เซริฟเวอร์ (DNS server)
+  <li>3.	CONTROLLER_IP และ CONTROLLER_IP_NIC คือพารามีเตอร์ค่าไอพีและชื่อนิคส์ของเครื่องคอมโทรเลอร์บนระบบเครือข่ายบริหารจัดการ
+  <li>4.	GATEWAY_IP เป็นการระบุค่าไอพีของเร้าเตอร์เกตเวย์ (router gateway) ของระบบเครือข่ายบริหารจัดการ 
+  <li>5.	NETWORK_IP และ NETWORK_IP_NIC คือพารามีเตอร์ค่าไอพีและชื่อนิคส์ของเครื่องเน็ตเวิร์คบนระบบเครือข่ายบริหารจัดการ
+</ul>
+<pre>
+export MANAGEMENT_NETWORK_NETMASK=255.255.255.0
+export MANAGEMENT_NETWORK=10.100.20.0
+export MANAGEMENT_BROADCAST_ADDRESS=10.100.20.255 
+export DNS_IP=8.8.8.8
+…
+export CONTROLLER_IP=10.100.20.11
+export CONTROLLER_IP_NIC=ens3
+export GATEWAY_IP=10.100.20.1
+…
+export NETWORK_IP=10.100.20.21
+export NETWORK_IP_NIC=ens3
+</pre>
+<ul>
+  <li>6.	DATA_TUNNEL_NETWORK_NODE_IP และ DATA_TUNNEL_NETWORK_NODE_IP_NIC เป็นการระบุค่าไอพีและชื่อนิคส์ที่เครื่องเน็ตเวิร์คใช้เชื่อมต่อกับระบบเครือข่ายดาต้าทัลเนิล
+  <li>7.	DATA_TUNNEL_NETWORK_ADDRESS และ DATA_TUNNEL_NETWORK_NETMASK เป็นการระบุค่าสับเน็ตของระบบเครือข่ายดาต้าทัลเนิล
+</ul>
+<pre>
+export DATA_TUNNEL_NETWORK_NODE_IP=10.0.1.21
+export DATA_TUNNEL_NETWORK_NODE_IP_NIC=ens4
+export DATA_TUNNEL_NETWORK_ADDRESS=10.0.1.0
+export DATA_TUNNEL_NETWORK_NETMASK=255.255.255.0
+</pre>
+<ul>
+  <li>8.	VLAN_NETWORK_NODE_IP_NIC เป็นพารามีเตอร์ที่ระบุว่าเครื่องเน็ตเวิร์คเชื่อมต่อกับระบบเครือข่าววีแลนผ่านนิคส์ใด
+  <li>9.	EXTERNAL_CIDR และ EXTERNAL_CIDR_NIC เป็นการระบุค่าสับเน็ตของระบบเครือข่ายภายนอกที่เครื่องเน็ตเวิร์คเชื่อมต่อและชื่อของนิคส์ที่เชื่อมต่อระบบเครือข่ายดังกล่าว
+  <li>10.	EXTERNAL_GATEWAY_IP เป็นพรามีเตอร์ที่ระบุค่าไอพีของเร้าเตอร์เกตเวย์ของระบบเครือข่ายถายนอก
+  <li>11.	START_FLOATING_IP และ END_FLOATING_IP เป็นการระบุชุดบล้อค (block) ของค่าไอพีจากระบบเครือข่ายภายนอกที่ระบบโอเพ่นสแตคสามารถนำไปใช้เพื่อเป็นค่าไอพีของวีเอ็มที่ระบบฯสร้างขึ้นเพื่อที่จะทำให้วีเอ็มนั้นสามารถปฏิบัติงานเป็นเซริฟเวอร์ให้คอมพิวเตอร์เครื่องอื่นติดต่อผ่านระบบเครือข่ายภายนอกได้
+</ul>
+<pre>
+export VLAN_NETWORK_NODE_IP_NIC=ens5
+…
+export EXTERNAL_CIDR=10.100.20.0\\/24
+export EXTERNAL_CIDR_NIC=ens6
+export EXTERNAL_GATEWAY_IP=10.100.20.1
+…
+export START_FLOATING_IP=10.100.20.150
+export END_FLOATING_IP=10.100.20.199
+</pre>
+<ul>
+  <li>12.	COMPUTE_IP และ COMPUTE_IP_NIC เป็นพารามีเตอร์เพื่อระบุค่าไอพีและนิคส์ของเครื่องคอมพิวต์ที่เชื่อมต่อกับระบบเครือข่ายบริหารจัดการ
+  <li>13.	DATA_TUNNEL_COMPUTE_NODE_IP และ DATA_TUNNEL_COMPUTE_NODE_IP_NIC เป็นการระบุค่าไอพีและนิคส์ที่เครื่องคอมพิวต์ใช้เชื่อมต่อกับระบบเครือข่ายดาต้าทัลเนิล
+  <li>14.	VLAN_COMPUTE_NODE_IP_NIC เป็นการระบุชื่อของนิคส์ของเครื่องคอมพิวต์ที่ใช้เชื่อมต่อกับระบบเครือข่ายวีแลน ผู้ติดตั้งไม่จำเป็นต้องกำหนดค่าไอพีสำหรับนิคส์นี้
+</ul>
+<pre>
+export COMPUTE_IP=10.100.20.31
+export COMPUTE_IP_NIC=ens3
+export DATA_TUNNEL_COMPUTE_NODE_IP=10.0.1.31
+export DATA_TUNNEL_COMPUTE_NODE_IP_NIC=ens4
+export VLAN_COMPUTE_NODE_IP_NIC=ens5
+</pre>
+<ul>
+  <li>15.	COMPUTE1_IP จนถึง VLAN_COMPUTE1_NODE_IP_NIC เป็นการระบุค่าแบบเดียวกับข้อ 12 ถึง 14 สำหรับเครื่องคอมพิวต์หนึ่ง
+</ul>
+<pre>
+export COMPUTE1_IP=10.100.20.32
+export COMPUTE1_IP_NIC=ens3
+export DATA_TUNNEL_COMPUTE1_NODE_IP=10.0.1.32
+export DATA_TUNNEL_COMPUTE1_NODE_IP_NIC=ens4
+export VLAN_COMPUTE1_NODE_IP_NIC=ens5
+</pre>
+<p>
+  หลังจากที่ผู้ติดตั้งระบุค่าในไฟล์ install-paramrc.sh แล้ว ผู้ติดตั้งต้องรันสคริปต์ ./exe-config-installer.sh เพื่อสร้างสคริปต์จำนวนหนึ่งที่ได้รับการแทนค่าพารามีเตอร์ต่างๆให้พร้อมสำหรับการติดตั้ง
+<pre>
+On controller: 
+$ pwd
+/home/openstack/openstack-victoria-basic-installer
+$ ./exe-config-installer.sh
+</pre>
+<p>
+  สคริปต์ ./exe-config-installer.sh จะสร้างไดเรคทอรี่ OPSInstaller ขึ้นมาบนเครื่องคอนโทรเลอร์ ภายในไดเรคทอรี่นั้นจะมีไดเรคทอรี่ย่อยที่มีสคริปต์และไฟล์กำหนดค่า (configuration files) สำหรับเครื่องที่จะติดตั้งโอเพ่นสแตคแต่ละเครื่อง ยกตัวอย่างเช่น ไดเรคทอรี่ย่อย controller จะประกอบไปด้วยสคริปต์และไฟล์กำหนดค่าที่ได้รับการระบุค่าพารามีเตอร์แล้วสำหรับการติดตั้งบนเครื่องคอมโทรเลอร์ เป็นต้น 
+<pre>
+On controller:
+$ cd OPSInstaller/
+$ ls
+compute                   newcompute
+compute1                  remove-all-except-compute1.sh
+controller                remove-all-except-compute.sh
+Deploy-1node-controller   remove-all-except-controller.sh
+Deploy-2nodes-compute     remove-all-except-network.sh
+Deploy-2nodes-controller  remove-all-except-newcompute.sh
+installer                 replace-newcompute-genericnames.sh
+network                   scriptmap.html
+$
+</pre>
+<p><p>
+ตารางที่ 7-2 โครงสร้างและหน้าที่ของสคริปต์สำหรับช่วยติดตั้งระบบโอเพ่นสแตคที่จะต้องรันบนเครื่องคอนโทรเลอร์ เครื่องเน็ตเวิร์ค เครื่องคอมพิวต์ และเครื่องคอมพิวต์หนึ่ง
+<p>
+
+
+
 UNDER CONSTRUCTION!
 
 
