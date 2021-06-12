@@ -8,3 +8,4 @@ Contact: kasiditchanchio@gmail.com <br>
 <p>
 <h3>อ้างอิง</h3>
 <p><p>
+  <img src="documents/openstack-host-network.png">
