@@ -176,8 +176,8 @@ export EXTERNAL_CIDR=10.100.20.0\\/24
 export EXTERNAL_CIDR_NIC=ens6
 export EXTERNAL_GATEWAY_IP=10.100.20.1
 …
-export START_FLOATING_IP=10.100.20.150
-export END_FLOATING_IP=10.100.20.199
+export START_FLOATING_IP=10.100.20.160
+export END_FLOATING_IP=10.100.20.200
 </pre>
 <ul>
   <li>	COMPUTE_IP และ COMPUTE_IP_NIC เป็นพารามีเตอร์เพื่อระบุค่าไอพีและนิคส์ของเครื่องคอมพิวต์ที่เชื่อมต่อกับระบบเครือข่ายบริหารจัดการ
@@ -274,7 +274,7 @@ $
 $ sudo reboot
 </pre>
 <p>
-  เนื่องจากผู้ติดตั้งจะต้องรันสคริปต์ exe-stage00-SUDO-update.sh บนทุกเครื่องและสคริปต์ใช้เวลารันนาน ดังนั้นผู้ติดตั้งควรรันสคริปต์บนทุกเครื่องพร้อมๆกัน บนเครื่องเน็ตเวิร์ค เครื่องคอมพิวต์ และเครื่องคอมพิวต์หนึ่ง สคริปต์จะออกคำสั่งรีบูทโดยอัตโนมัติเมื่อจบการประมวลผลบน
+  เนื่องจากผู้ติดตั้งจะต้องรันสคริปต์ exe-stage00-SUDO-update.sh บนทุกเครื่องและสคริปต์ใช้เวลารันนาน ดังนั้นผู้ติดตั้งควรรันสคริปต์บนทุกเครื่องพร้อมๆกัน หมายเหตุ:สคริปต์จะออกคำสั่งรีบูทโดยอัตโนมัติเมื่อจบการประมวลผลบนเครื่องเน็ตเวิร์ค เครื่องคอมพิวต์ และเครื่องคอมพิวต์หนึ่ง
 <pre>
 On network: 
 $ cd OPSInstaller/network/
@@ -329,13 +329,13 @@ $ sudo ./exe-stage03-SUDO-compute-preinstall.sh
 …
 ens3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.100.20.31  netmask 255.255.255.0  broadcast 10.100.20.255
-
+...
 ens4: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.0.1.31  netmask 255.255.255.0  broadcast 10.0.1.255
-
+...
 ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:394  prefixlen 64  scopeid 0x20<link>
-
+...
 ens6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:494  prefixlen 64  scopeid 0x20<link>
  …
@@ -350,13 +350,13 @@ $ cd OPSInstaller/compute1/
 $ sudo ./exe-stage03-SUDO-compute-preinstall.sh
 ens3: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.100.20.32  netmask 255.255.255.0  broadcast 10.100.20.255
-
+...
 ens4: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet 10.0.1.32  netmask 255.255.255.0  broadcast 10.0.1.255
-
+...
 ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:395  prefixlen 64  scopeid 0x20<link>
-
+...
 ens6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:495  prefixlen 64  scopeid 0x20<link>
 …
@@ -421,6 +421,7 @@ $
 <h3>5 ติดตั้งระบบสื่อสารแรบบิทเอ็มคิว (Setting up rabbitmq)</h3>
 <p>
 ระบบโอเพ่นสแตกใช้ซอฟต์แวร์แรบบิทเอ็มคิว rabbitmq [6] ซึ่งเป็นซอฟต์แวร์แบบโอเพ่นซอร์สที่ปฏิบัติงานเป็นแมสเสจ-โบรคเกอร์ (Message-Broker) ที่รองรับการสื่อสารข้อมูลของโปรโตคอลจัดการคิวข้อความขั้นสูง (Advanced Message Queue Protocol) หรือ เอเอ็มคิวพี (AMQP) และโปรโตคอลอื่นๆ อาทิเช่น เอสทีโอเอ็มพี (STOMP) และ เอ็มคิวทีที (MQTT) เป็นต้น โอเพ่นสแตกใช้ซอฟต์แวร์นี้สื่อสารคำสั่งและข้อมูลระหว่างซอฟต์แวร์ส่วนประกอบต่างที่อาจอยู่บนโฮสเครื่องเดียวกันหรือต่างเครื่องกัน 
+<p>
 	ต่อจากการติดตั้งมาเรียดีบี ผู้ติดตั้งจะต้องรันสคริปต์ exe-stage07-SUDO-rabbit.sh เพื่อติดตั้งแรบบิทเอ็มคิวบนเครื่องคอนโทรเลอร์
 <pre>
 On controller: 
@@ -625,7 +626,7 @@ $ sudo ./exe-stage41-SUDO-cinder-storage.sh
 <p>
 <h3>14 สรุปการติดตั้ง</h3>
 <p>
-ที่ผ่านมาผู้เขียนได้บรรยายการติดตั้งระบบโอเพ่นสแตคด้วยสคริปต์ เราได้ติดตั้งคอมโพเน้นพื้นฐานห้าคอมโพเน้นของระบบโอเพ่นสแตค ได้แก่ คียสโตน แกล๊นซ์ โนวา นิวตรอน ฮอไรซัน และซินเดอร์ ผู้อ่านสามารถหาข้อมูลเกี่ยวกับสคริปต์ที่ใช้ในการติดตั้งได้โดยเข้าไปดูรายละเอียดที่ไฟล์ต่างๆใน github page นี้ ยิ่งหว่านั้นผู้ติดตั้งสามารถดุรายละเอียดสคริปต์และ configuration files สำหรับการติดตั้งของตนเองได้ในไดเรกทอรี่ /home/openstack/openstack-victpria-basic-installer/OPSInstaller บนเครื่องคอนโทรเลอร์
+ที่ผ่านมาผู้เขียนได้บรรยายการติดตั้งระบบโอเพ่นสแตคด้วยสคริปต์ เราได้ติดตั้งคอมโพเน้นพื้นฐานห้าคอมโพเน้นของระบบโอเพ่นสแตค ได้แก่ คียสโตน แกล๊นซ์ โนวา นิวตรอน ฮอไรซัน และซินเดอร์ ผู้อ่านสามารถหาข้อมูลเกี่ยวกับสคริปต์ที่ใช้ในการติดตั้งได้โดยเข้าไปดูรายละเอียดที่ไฟล์ configuration files ที่เกี่ยวข้องใน github page นี้ นอกจากนั้น ผู้ติดตั้งสามารถศึกษารายละเอียดของสคริปต์และ configuration files ในการติดตั้งของตนเอง ได้จากไฟล์ในไดเรกทอรี่ /home/openstack/openstack-victpria-basic-installer/OPSInstaller บนเครื่องคอนโทรเลอร์
 
 <h3>อ้างอิง</h3>
 <p><p>
