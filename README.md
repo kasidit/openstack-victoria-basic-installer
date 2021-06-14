@@ -293,11 +293,14 @@ $ sudo ./exe-stage00-SUDO-update.sh
 <h3>3 การกำหนดการเชื่อมต่อระบบเครือข่าย (Setting up Network Interfaces)</h3>
 <p>
   หลังจากที่ทุกเครื่องได้รับการรีบูทแล้ว ผู้ติดตั้งจะต้องรันสคริปต์บนเครื่องคอนโทรเลอร์เพื่อกำหนดค่าไอพีและแอคติเวท (Activate) นิคส์ที่โอเพ่นสแตคต้องใช้บนเครื่องที่จะติดตั้งทุกเครื่องดังภาพ 1 ในอันดับแรกผู้ติดตั้งจะต้องล็อกอินเข้าสู่เครื่องคอนโทรเลอร์ cd เข้าสู่ไดเรคทอรี่ OPSInstaller/controller/ และรันสคริปต์ exe-stage01-SUDO-preinstall.sh ซึ่งจะกำหนดค่าในไฟล์ /etc/network/interfaces และไฟล์ /etc/hosts หลังจากนั้นให้ล็อกอินไปที่เครื่องเน็ตเวิร์ค
+<p>
+	<b>หมายเหตุ:</b> ผู้ติดตั้งควรสร้างสกรีนแซสชั่น (screen session) ไว้บน<b>ทุกเครื่องที่ผู้ติดตั้งล็อกอินเข้าใช้งานโดยตรง</b>จากเครื่องโลคอลคอมพิวเตอร์ (Local computer) เช่นโน๊ตบุ้คคอมพิวเตอร์ หรือเดสค์ท้อปคอมพิวเตอร์ของผู้ติดตั้ง เพื่อป้องกันกรณีเน็ตเวิร์คขาดการเชื่อมต่อ (network disconnection) ในระหว่างติดตั้ง ขอให้ศึกษาการใช้งานสกรีนยูทิลิตี้ (screen utility) ด้วยตนเอง
 <pre>
 On controller: 
+$ screen
 $ cd OPSInstaller/controller/
 $ sudo ./exe-stage01-SUDO-preinstall.sh
-$ ssh network
+$ 
 </pre>
 บนเครื่องเน็ตเวิร์ค ให้ cd ไปที่ OPSInstaller/network และรันสคริปต์ exe-stage02-SUDO-network-preinstall.sh ซึ่งจะรายงานเอ้าพุทต์เป็นรายการของนิคส์ที่ได้รับการกำหนดค่าไอพีได้แก่นิคส์ ens3 และ ens4 และที่ไม่มีค่าไอพีแต่ถูกแอคติเวทสำหรับให้โอเพ่นสแตคใช้ได้แก่ ens5 และ ens6 เมื่อเสร็จแล้วให้ล็อกเอ้ากลับมาที่เครื่องคอนโทรเลอร์ และล็อกอินเข้าสู่เครื่องคอมพิวต์
 <pre>
@@ -317,9 +320,7 @@ ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 ens6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:493  prefixlen 64  scopeid 0x20<link>
 …
-$ exit
-On controller: 
-$ ssh compute
+$ 
 </pre>
 บนเครื่องคอมพิวต์ ให้ทำคล้ายกับบนเครื่องเน็ตเวิร์ค เพื่อรันสคริปต์ exe-stage03-SUDO-compute-preinstall.sh ซึ่งจะให้ผลลัพธ์คล้ายกับการรันสคริปต์บนเครื่องเน็ตเวิร์ค เมื่อเสร็จแล้วให้ล็อกเอ้าและล้อกอินเข้าสู่เครื่องคอมพิวต์หนึ่ง
 <pre>
@@ -339,9 +340,7 @@ ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 ens6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:494  prefixlen 64  scopeid 0x20<link>
  …
-$ exit
-On controller: 
-$ ssh compute1
+$ 
 </pre>
 บนเครื่องคอมพิวต์หนึ่ง ทำเช่นเดียวกันกับที่ทำบนเครื่องคอมพิวต์ และหลังจากเสร็จแล้วให้อ็กซิท (exit) กลับสู่เครื่องคอนโทรเลอร์
 <pre>
@@ -360,7 +359,7 @@ ens5: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 ens6: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
         inet6 fe80::281:50ff:fe00:495  prefixlen 64  scopeid 0x20<link>
 …
-$ exit
+$ 
 </pre>
 <p>
 <h3>4 ติดตั้งระบบฐานข้อมูลมาเรียดีบี mariadb และกำหนดค่าเริ่มต้น (Setting up mariadb)</h3>
@@ -394,28 +393,24 @@ Remove test database and access to it? [Y/n] ใส่ y
 …
 Reload privilege tables now? [Y/n] ใส่ y
 …
-$ ssh network
+$ 
 </pre>
 บนเครื่องเน็ตเวิร์ค ให้รันสคริปต์ exe-stage05-SUDO-network-mysql.sh ดังคำสั่งข้างล่าง สคริปต์จะรันซอฟต์แวร์โครนี่เพื่อซิงโครไนซ์เวลากับเครื่องคอนโทรเลอร์ หลังจากนั้นให้เอ็กซิทกลับมาที่เครื่องคอนโทรเลอร์และล็อกอินเข้าสู่เครื่องคอมพิวต์เพื่อรันสคริปต์ exe-stage06-SUDO-compute-mysql.sh ซึ่งจะทำเช่นเดียวกันกับสคริปต์ที่เพิ่งรันบนเครื่องเนตเวิร์ค หลังจากนั้นให้เอ็กซิท และล็อกอินเข้าสู่เครื่องคอมพิวต์หนึ่งและรันคำสั่งเช่นเดียวกับที่ทำบนเครื่องคอมพิวต์
 <pre>
 On network: 
 $ cd OPSInstaller/network/
 $ sudo ./exe-stage05-SUDO-network-mysql.sh
-$ exit
-On controller: 
-$ ssh compute
+$ 
+...
 On compute: 
 $ cd OPSInstaller/compute/
 $ sudo ./exe-stage06-SUDO-compute-mysql.sh
-$ exit
-On controller: 
-$ ssh compute1
+$ 
+...
 On compute1: 
 $ cd OPSInstaller/compute1/
 $ sudo ./exe-stage06-SUDO-compute-mysql.sh
-$ exit
-On controller: 
-$
+$ 
 </pre>
 <p>
 <h3>5 ติดตั้งระบบสื่อสารแรบบิทเอ็มคิว (Setting up rabbitmq)</h3>
