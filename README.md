@@ -58,8 +58,8 @@ $ ls
 openstack-victoria-basic-installer
 </pre>
 <pre>
-Playlist: https://www.youtube.com/playlist?list=PLmUxMbTCUhr684_pVrjSZYgqmJX757pcp
-Video 01: https://youtu.be/CKRYqGAQ5p0
+Playlist: <a href="https://www.youtube.com/playlist?list=PLmUxMbTCUhr684_pVrjSZYgqmJX757pcp">https://www.youtube.com/playlist?list=PLmUxMbTCUhr684_pVrjSZYgqmJX757pcp</a>
+Video 01: <a href="https://youtu.be/CKRYqGAQ5p0">https://youtu.be/CKRYqGAQ5p0</a>
 </pre>
 <p>
   หลังจากนั้นให้ cd เข้าสู่ openstack-victoria-basic-installer และลิสต์ชื่อไฟล์และสับไดเรคทอรี
