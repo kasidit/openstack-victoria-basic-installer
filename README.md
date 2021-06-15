@@ -57,8 +57,9 @@ Cloning into 'openstack-victoria-basic-installer'...
 $ ls
 openstack-victoria-basic-installer
 </pre>
-<pre color=grey>
-Video:
+<pre>
+Playlist: https://www.youtube.com/playlist?list=PLmUxMbTCUhr684_pVrjSZYgqmJX757pcp
+Video 01: https://youtu.be/CKRYqGAQ5p0
 </pre>
 <p>
   หลังจากนั้นให้ cd เข้าสู่ openstack-victoria-basic-installer และลิสต์ชื่อไฟล์และสับไดเรคทอรี
@@ -254,6 +255,9 @@ $ sudo ./exe-preinstall00-SUDO-update.sh
 $ ./exe-preinstall01-USER-set-remote-access.sh
 $ ./exe-preinstall02-USER-set-openstack-nodes.sh
 </pre>
+<pre>
+Video 02: https://youtu.be/k4zK2FWSKXo
+</pre>
 <p>
 สคริปต์สำหรับติดตั้งโอเพ่นสแตคจะได้รับการอันทาร์ไว้ในไดเรคทอรี่ $HOME/OPSInstaller ของแต่ละเครื่อง (ซึ่งจากข้อกำหนดว่าแอคเค้าที่จะใช้ติดตั้งโอเพ่นสแตคบนแต่ละเครื่องมีชื่อว่า “openstack” ค่า $HOME ในที่นี้จะหมายถึงไดเรคทอรี่ /home/openstack)
 <p>
@@ -275,6 +279,9 @@ update-initramfs: Generating /boot/initrd.img-5.4.0-58-generic
 … จะใช้เวลาระยะหนึ่ง …
 $
 $ sudo reboot
+</pre>
+<pre>
+Video 03: https://youtu.be/0-xmtc00dLw
 </pre>
 <p>
   เนื่องจากผู้ติดตั้งจะต้องรันสคริปต์ exe-stage00-SUDO-update.sh บนทุกเครื่องและสคริปต์ใช้เวลารันนาน ดังนั้นผู้ติดตั้งควรรันสคริปต์บนทุกเครื่องพร้อมๆกัน หมายเหตุ:สคริปต์จะออกคำสั่งรีบูทโดยอัตโนมัติเมื่อจบการประมวลผลบนเครื่องเน็ตเวิร์ค เครื่องคอมพิวต์ และเครื่องคอมพิวต์หนึ่ง
@@ -304,6 +311,9 @@ $ screen
 $ cd OPSInstaller/controller/
 $ sudo ./exe-stage01-SUDO-preinstall.sh
 $ 
+</pre>
+<pre>
+Video 04: https://youtu.be/xA9bMdL4yKE
 </pre>
 บนเครื่องเน็ตเวิร์ค ให้ cd ไปที่ OPSInstaller/network และรันสคริปต์ exe-stage02-SUDO-network-preinstall.sh ซึ่งจะรายงานเอ้าพุทต์เป็นรายการของนิคส์ที่ได้รับการกำหนดค่าไอพีได้แก่นิคส์ ens3 และ ens4 และที่ไม่มีค่าไอพีแต่ถูกแอคติเวทสำหรับให้โอเพ่นสแตคใช้ได้แก่ ens5 และ ens6 
 <pre>
@@ -397,6 +407,10 @@ Reload privilege tables now? [Y/n] ใส่ y
 …
 $ 
 </pre>
+<pre>
+Video 05: https://youtu.be/QJoHuwriN58
+Video 06: https://youtu.be/a5btD1shM1c
+</pre>
 ถัดไป บนเครื่องเน็ตเวิร์ค ให้รันสคริปต์ exe-stage05-SUDO-network-mysql.sh ดังคำสั่งข้างล่าง สคริปต์จะรันซอฟต์แวร์โครนี่เพื่อซิงโครไนซ์เวลากับเครื่องคอนโทรเลอร์ หลังจากนั้นให้ล็อกอินเข้าสู่เครื่องคอมพิวต์และคอมพิวต์หนึ่งเพื่อรันสคริปต์ exe-stage06-SUDO-compute-mysql.sh ซึ่งจะทำเช่นเดียวกันกับสคริปต์ที่เพิ่งรันบนเครื่องเนตเวิร์ค 
 <pre>
 On network: 
@@ -424,6 +438,9 @@ $
 On controller: 
 $ sudo ./exe-stage07-SUDO-rabbit.sh
 </pre>
+<pre>
+Video 07: https://youtu.be/awlGBHDcR0M
+</pre>
 <p>
 <h3>6 ติดตั้งคีย์สโตน (Keystone Installation)</h3>
 <p>
@@ -433,6 +450,10 @@ On controller:
 $ sudo ./exe-stage08-SUDO-keystone-database.sh
 $ sudo ./exe-stage09-SUDO-keystone.sh
 </pre>
+<pre>
+Video 08: https://youtu.be/VSFFFQY89dE
+</pre>
+
 หลังจากนั้นผู้ติดตั้งจะ 1) สร้างเซอร์วิสโปรเจค (Service Project) เพื่อเตรียมให้บริการพิสูจน์ตัวตนและสิทธิการใช้งานของคีย์สโตนแก่เซอร์วิสต่างๆของระบบโอเพ่นสแตคที่จะได้รับารติดตั้งต่อไป โดยรันสคริปต์ exe-stage10-USER-service-endpoints.sh และ 2) ทดสอบคีย์สโตนโดยรันสคริปต์ exe-stage11-USER-test-envscript.sh 
 <p>
 หมายเหตุ: ขอให้สังเกตว่าผู้ติดตั้งต้องรันสคริปต์ทั้งสองโดยใช้ยูเซอร์แอคเค้าต์ธรรมดา (ยูเซอร์ openstack) เนื่องจากชื่อสคริปต์มีชุดอักษร “USER” อยู่ในนั้น หากผู้ติดตั้งใช้ sudo จะเกิดความผิดพลาดขึ้นในการรันสคริปต์ในอนาคต
@@ -440,6 +461,9 @@ $ sudo ./exe-stage09-SUDO-keystone.sh
 On controller: 
 $ ./exe-stage10-USER-service-endpoints.sh
 $ ./exe-stage11-USER-test-envscript.sh
+</pre>
+<pre>
+Video 09: https://youtu.be/TT5z0rMfI-8
 </pre>
 <p>
 <h3>7 ติดตั้งแกล๊นซ์ (Glance Installation)</h3>
@@ -455,6 +479,9 @@ $ sudo ./exe-stage14-SUDO-glance.sh
 $ sudo ./exe-stage14-x1-SUDO-glance.sh
 $ ./exe-stage15-USER-verify-glance.sh
 </pre>
+<pre>
+Video 10: https://youtu.be/zuZeXJokraA
+</pre>
 <p>
 <h3>8 ติดตั้งแพลซเม้นท์ (Placement Installation)</h3>
 <p>
@@ -468,6 +495,9 @@ On controller:
 $ sudo ./exe-stage15-x1-SUDO-placement-database.sh
 $ ./exe-stage15-x2-USER-placement-endpoints.sh
 $ sudo ./exe-stage15-x3-SUDO-placement.sh
+</pre>
+<pre>
+Video 11: https://youtu.be/Owcv17f2MAg
 </pre>
 <p>
 <h3>9 ติดตั้งโนวา (Nova Installation)</h3>
@@ -494,12 +524,18 @@ $ sudo ./exe-stage16-SUDO-nova-database.sh
 $ ./exe-stage17-USER-nova-endpoints.sh
 $ sudo ./exe-stage18-SUDO-nova.sh
 </pre>
+<pre>
+Video 12: https://youtu.be/1Q5O0UkxXIQ
+</pre>
 ถัดไป ผู้ติดตั้งต้องล็อกอินเข้าสู่เครื่องคอมพิวต์เพื่อรันสคริปต์ exe-stage19-SUDO-nova-compute.sh และ exe-stage19-x1-SUDO-nova-compute.sh เพื่อติดตั้งโนวาคอมพิวต์ หลังจากเสร็จแล้วให้ทำแบบเดียวกันบนเครื่องคอมพิวต์หนึ่ง 
 <pre>
 On compute & compute1: 
 $ cd OPSInstaller/compute/
 $ sudo ./exe-stage19-SUDO-nova-compute.sh
 $ sudo ./exe-stage19-x1-SUDO-nova-compute.sh
+</pre>
+<pre>
+Video 13: https://youtu.be/7Vbt6dWBANU
 </pre>
 หลังจากนั้น ผู้ติดตั้งต้องรันสคริปต์ exe-stage20-0-USER-verify-nova-compute.sh exe-stage20-1-USER-verify-nova-compute1.sh และ exe-stage20-2-USER-verify-nova.sh บนเครื่องคอนโทรเลอร์ เพื่อตรวจสอบว่าโนวาเอเจ้นท์บนเครื่องคอนโทรเลอร์สามารถประสานงานกับโนวาเอเจนท์บนเครื่องคอมพิวต์โฮสทั้งสองหรือไม่ ในตัวอย่างข้างล่างสคริปต์รายงานว่าพบเครื่องคอมพิวต์และคอมพิวต์หนึ่งเป็นโฮสในระบบ
 <pre>
@@ -516,6 +552,9 @@ Creating host mapping for compute host 'compute1': 9e76d546-b88e-4d19-9b87-28cf5
 …
 $ ./exe-stage20-1-USER-verify-nova-compute1.sh
 $ ./exe-stage20-2-USER-verify-nova.sh
+</pre>
+<pre>
+Video 14: https://youtu.be/_xGPkLL6YZQ
 </pre>
 <h3>10 ติดตั้งนิวตรอน (Neutron Installation)</h3>
 <p>
@@ -541,11 +580,17 @@ $ ./exe-stage22-USER-neutron-endpoints.sh
 $ sudo ./exe-stage23-SUDO-neutron.sh
 $ ./exe-stage24-USER-verify-neutron.sh
 </pre>
+<pre>
+Video 15: https://youtu.be/20Rk3KcNeBs
+</pre>
 ถัดจากนั้นผู้ติดตั้งจะต้องล็อกอินเข้าสู่เครื่องเน็ตเวิร์ค เพื่อรันสคริปต์ exe-stage25-SUDO-network-neutron.sh เพื่อติดตั้งนิวตรอนซอฟต์แวร์แพคเกจ
 <pre>
 On network: 
 $ cd OPSInstaller/network/
 $ sudo ./exe-stage25-SUDO-network-neutron.sh
+</pre>
+<pre>
+Video 16: https://youtu.be/GmTl5_cLURc
 </pre>
 หลังจากนั้น ผู้ติดตั้งต้องกลับมารันสคริปต์ exe-stage26-SUDO-reconfig-neutron-nova.sh เพื่อรันโอเพ่นวีสวิชต์ (openvswitch) บนเครื่องคอนโทรเลอร์
 <pre>
@@ -569,10 +614,16 @@ On compute & compute1:
 $ cd OPSInstaller/compute/
 $ sudo ./exe-stage29-SUDO-compute-neutron.sh
 </pre>
+<pre>
+Video 17: https://youtu.be/gv65B1OXkco
+</pre>
 หลังจากนั้น ผู้ติดตั้งจะกลับมาที่เครื่องคอนโทรเลอร์เพื่อรันสคริปต์ exe-stage30-USER-verify-neutron3.sh เพื่อตรวจสอบความถูกต้องอีกครั้งหนึ่ง
 <pre>
 On controller: 
 $ ./exe-stage30-USER-verify-neutron3.sh
+</pre>
+<pre>
+Video 18: https://youtu.be/1qCPJSZEjAI
 </pre>
 <p>
 ในอันดับถัดไป ผู้เขียนจะข้ามการรันสคริปต์ “*stage31*.sh” ถึง “*stage35*.sh” เนื่องจากสคริปต์เหล่านั้นใช้สำหรับกำหนดให้นิวตรอนเปลี่ยนโหมดการปฏิบัติงานแบบใช้เครื่องเนตเวิร์คเป็นศูนย์กลางสำหรับรันเร้าเตอร์เสมือน เป็นแบบกำหนดให้เครื่องคอมพิวต์โฮสทุกเครื่องรันเร้าเตอร์เสมือนได้ด้วย หรือเรียกอีกอย่างหนึ่งว่าเป็นนิวตรอนคอมโพเน้นที่ปฏิบัติงานแบบเร้าเตอร์แบบกระจาย (Distributed Virtual Router) หรือดีวีอาร์ (DVR) ซึ่งผู้เขียนเห็นว่าเป็นที่นิยมน้อยกว่านิวตรอนแบบปกติ และจะไม่กล่าวถึงการติดตั้งนิวตรอนแบบดีวีอาร์ ณ ที่นี้
@@ -588,6 +639,9 @@ $ ./exe-stage30-USER-verify-neutron3.sh
 On controller: 
 $ ./exe-stage36-USER-initial-network.sh
 </pre>
+<pre>
+Video 19: https://youtu.be/Ib9OpV8CoyE
+</pre>
 <p>
 <h3>12 ติดตั้งฮอไรสัน (Horizon Installation)</h3>
 <p>
@@ -599,6 +653,9 @@ $ ./exe-stage36-USER-initial-network.sh
 <pre>
 On controller: 
 $ sudo ./exe-stage37-SUDO-horizon.sh
+</pre>
+<pre>
+Video 20: https://youtu.be/LMM36dzvBec
 </pre>
 <p>
 <h3>13 ติดตั้งซินเดอร์ (Cinder Installation)</h3>
@@ -614,6 +671,9 @@ $ sudo ./exe-stage38-SUDO-cinder-database.sh
 $ ./exe-stage39-USER-cinder-endpoints.sh
 $ sudo ./exe-stage40-SUDO-cinder.sh
 </pre>
+<pre>
+Video 21: https://youtu.be/rb2AHvrL5mU
+</pre>
 <p>
 ในอันดับถัดไป ผู้ติดตั้งต้องล็อกอินเข้าสู่เครื่องคอมพิวต์ และเช็คให้แน่ใจว่าเครื่องคอมพิวต์มีดิสค์เปล่าสองดิสค์เชื่อมต่อเป็นอุปกรณ์ไอโออยู่แล้ว ในจังหวะนี้ผู้ติดตั้งอาจต้องตรวจสอบด้วยว่าดิสค์เปล่าที่จะใช้มีชื่อของอุปกรณ์ตรงกันกับที่ระบุในสคริปต์ exe-stage41-SUDO-cinder-storage.sh หรือไม่ ถ้าไม่ตรงผู้ติดตั้งจะต้องปรับเปลี่ยนค่าในสคริปต์ให้หมาะสม 
 <p>
@@ -624,6 +684,10 @@ $ sudo ./exe-stage40-SUDO-cinder.sh
 On compute: 
 $ cd OPSInstaller/compute/
 $ sudo ./exe-stage41-SUDO-cinder-storage.sh
+</pre>
+<pre>
+Video 22: https://youtu.be/Usf2_FFvSus
+Video 23: https://youtu.be/x1BcL3WzfB8
 </pre>
 <p>
 <h3>14 สรุปการติดตั้ง</h3>
