@@ -57,6 +57,9 @@ Cloning into 'openstack-victoria-basic-installer'...
 $ ls
 openstack-victoria-basic-installer
 </pre>
+<pre color=grey>
+Video:
+</pre>
 <p>
   หลังจากนั้นให้ cd เข้าสู่ openstack-victoria-basic-installer และลิสต์ชื่อไฟล์และสับไดเรคทอรี
 <pre>
