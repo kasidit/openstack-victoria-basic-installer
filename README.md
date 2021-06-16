@@ -708,6 +708,7 @@ chpasswd: { expire: False }
 ssh_pwauth: True
 </pre>
 และมาร์คเครื่องหมายถูก บนปุ่ม <b>configuration drive</b> จะทำให้ล็อกอินได้โดยใช้ username: "ubuntu" และ password: "vasabilab"
+</ul>
 <p>
 <h3>อ้างอิง</h3>
 <p><p>
