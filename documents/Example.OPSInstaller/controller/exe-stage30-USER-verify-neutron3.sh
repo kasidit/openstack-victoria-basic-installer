@@ -5,8 +5,7 @@
 #
 #
 #!/bin/bash -x
-cd $HOME/OPSInstaller/controller
-pwd
+cd /home/openstack/OPSInstaller/controller; pwd
 echo "Run this script as a user."
 
 source ./admin-openrc.sh

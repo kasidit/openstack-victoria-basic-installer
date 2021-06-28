@@ -47,25 +47,25 @@ export NTP_SERVER3=3.th.pool.ntp.org
 #
 # Management Network
 #
-export MANAGEMENT_NETWORK=10.100.20.0
+export MANAGEMENT_NETWORK=192.168.20.0
 export MANAGEMENT_NETWORK_NETMASK=255.255.255.0
-export MANAGEMENT_BROADCAST_ADDRESS=10.100.20.255 
+export MANAGEMENT_BROADCAST_ADDRESS=192.168.20.255 
 export DNS_IP=8.8.8.8
 #
 # This GATEWAY_IP define the IP addr of the gateway of 
 # the management network on every node.
 #
-export GATEWAY_IP=10.100.20.1
+export GATEWAY_IP=192.168.20.1
 #
 #
 # ---- controller host ----
 #
-export CONTROLLER_IP=10.100.20.11
+export CONTROLLER_IP=192.168.20.51
 export CONTROLLER_IP_NIC=ens3
 #
 # ---- network host ----
 #
-export NETWORK_IP=10.100.20.21
+export NETWORK_IP=192.168.20.61
 export NETWORK_IP_NIC=ens3
 #
 export DATA_TUNNEL_NETWORK_NODE_IP=10.0.1.21
@@ -74,18 +74,18 @@ export DATA_TUNNEL_NETWORK_ADDRESS=10.0.1.0
 export DATA_TUNNEL_NETWORK_NETMASK=255.255.255.0
 export VLAN_NETWORK_NODE_IP_NIC=ens5
 #
-export EXTERNAL_CIDR=10.100.20.0\\/24
+export EXTERNAL_CIDR=192.168.20.0\\/24
 export EXTERNAL_CIDR_NIC=ens6
-export EXTERNAL_GATEWAY_IP=10.100.20.1
+export EXTERNAL_GATEWAY_IP=192.168.20.1
 #
 # For DVR, the EXTERNAL_CIDR* of network node is the same for every compute node.
 #
-export START_FLOATING_IP=10.100.20.160
-export END_FLOATING_IP=10.100.20.200
+export START_FLOATING_IP=192.168.20.160
+export END_FLOATING_IP=192.168.20.200
 #
 # ---- compute host ----
 #
-export COMPUTE_IP=10.100.20.31
+export COMPUTE_IP=192.168.20.71
 export COMPUTE_IP_NIC=ens3
 export DATA_TUNNEL_COMPUTE_NODE_IP=10.0.1.31
 export DATA_TUNNEL_COMPUTE_NODE_IP_NIC=ens4
@@ -93,7 +93,7 @@ export VLAN_COMPUTE_NODE_IP_NIC=ens5
 #
 # ---- compute1 host ----
 #
-export COMPUTE1_IP=10.100.20.32
+export COMPUTE1_IP=192.168.20.72
 export COMPUTE1_IP_NIC=ens3
 export DATA_TUNNEL_COMPUTE1_NODE_IP=10.0.1.32
 export DATA_TUNNEL_COMPUTE1_NODE_IP_NIC=ens4
